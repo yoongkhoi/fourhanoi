@@ -1,32 +1,43 @@
-# Prerequisites
-*.d
+#include<iostream>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+typedef long long ll;
+const int maxn = 3e4;
+int n,m;        //n代表盘子，m代表移动次数
 
-# Fortran module files
-*.mod
-*.smod
+void threehanoi(int n, char A, char B, char C)
+{
+	if(n==1){
+		printf("第%d次移动：圆盘从柱子%c ->移到->柱子%c\n", ++m, A, C);
+		return;
+	}
+	threehanoi(n-1, A, C, B);
+	printf("第%d次移动：圆盘从柱子%c ->移到->柱子%c\n", ++m, A, C);
+	threehanoi(n-1, B, A, C);
+}
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
-# Executables
-*.exe
-*.out
-*.app
+void fourhanoi(int n, char A, char B, char C, char D)
+{
+    if(n==1){
+        printf("第%d次移动：圆盘从柱子%c ->移到->柱子%c\n", ++m, A, D);
+        return;
+    }
+    fourhanoi(n/2, A, C, D, B);
+    threehanoi(n-n/2, A, C, D);
+    fourhanoi(n/2, B, A, C, D);
+}
+
+
+
+int main()
+{
+    printf("请输入盘子的个数：");
+    cin >> n;
+    m=0;
+    fourhanoi(n, 'A', 'B', 'C', 'D');
+    printf("移动次数为：%d\n",m);
+    return 0;
+}
